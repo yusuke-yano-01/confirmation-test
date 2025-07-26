@@ -7,6 +7,7 @@
 .login-form__heading {
     margin-bottom: 20px;
     text-align: center;
+    color: #9c834b;
 }
 
 .form {
@@ -21,6 +22,15 @@
 
 .form__group-title {
     text-align: left;
+    color: #9e743e;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.form__label--item {
+    color: #9e743e;
+    font-weight: 600;
+    font-size: 16px;
 }
 
 .form__error {
@@ -49,7 +59,7 @@
     height: 50px;
     border: none;
     border-radius: 3px;
-    background: #000;
+    background: #9e743e;
     color: #fff;
     cursor: pointer;
 }

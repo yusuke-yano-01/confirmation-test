@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MiddlewareController;
+use App\Http\Controllers\ContactFormController;
+use App\Http\Controllers\ManagementController;  
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +17,29 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::get('/', [ContactFormController::class, 'index']);    
+
+Route::get('/middleware', [MiddlewareController::class, 'index']);
+Route::post('/middleware', [MiddlewareController::class, 'post'])->middleware('first');
+
+Route::group(['prefix' => 'contactform'], function() {
+    Route::get('', [ContactFormController::class, 'index']);
+    Route::post('confirm', [ContactFormController::class,'check']);
+    Route::post('thanks', [ContactFormController::class,'add']);
+    Route::get('thanks', [ContactFormController::class,'thanks']);
 });
-Route::get('/', [AuthController::class, 'index']);
+
+Route::group(['prefix' => 'auth'], function() {
+    Route::get('login', [AuthController::class, 'index']);
+    Route::get('register', [AuthController::class, 'registerForm']);
+    Route::post('register', [AuthController::class,'register']);
+});
+
+Route::group(['prefix' => 'management'], function() {
+    Route::get('', [ManagementController::class, 'index']);
+  });
+
 Route::middleware('auth')->group(function () {
-    Route::get('/', [AuthController::class, 'index']);
+    Route::get('/management', [AuthController::class, 'index']);
 });
