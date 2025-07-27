@@ -19,11 +19,9 @@
           FashionablyLate
         </a>
         <nav class="header-nav">
+        @csrf
             @if (Auth::check())
-              <a class="header-nav__link" href="/mypage">マイページ</a>
-              <form class="form" action="/logout" method="post">
-                @csrf
-                <button class="header-nav__button">ログアウト</button>
+              <button class="header-nav__button">ログアウト</button>
               </form>
             @elseif (request()->path() === 'auth/login')
               <a class="header-nav__link" href="/contactform">お問い合わせ</a>

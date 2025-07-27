@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MiddlewareController;
 use App\Http\Controllers\ContactFormController;
-use App\Http\Controllers\ManagementController;  
+use App\Http\Controllers\ContactListController;  
 
 /*
 |--------------------------------------------------------------------------
@@ -36,9 +36,11 @@ Route::group(['prefix' => 'auth'], function() {
     Route::post('register', [AuthController::class,'register']);
 });
 
-Route::group(['prefix' => 'management'], function() {
-    Route::get('', [ManagementController::class, 'index']);
-  });
+Route::group(['prefix' => 'contactlist'], function() {
+        Route::get('', [ContactListController::class, 'index']);
+        Route::post('', [ContactListController::class, 'reset']);
+        Route::post('search', [ContactListController::class, 'search']);
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/management', [AuthController::class, 'index']);

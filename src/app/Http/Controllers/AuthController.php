@@ -18,9 +18,10 @@ class AuthController extends Controller
     {
         return view('auth.register');
     }
+
     public function register(UsersRequest $request)
     {
-        $user = User::create([
+        User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),

@@ -1,0 +1,241 @@
+.contactlist__content {
+    margin: 0 auto;
+    padding: 30px 15px;
+    max-width: 1230px;
+}
+
+.contactlist__heading {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.contactlist__heading h2 {
+    color: #9e743e;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+/* 検索フォーム */
+.form {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.form__group {
+    display: inline-block;
+    margin-right: 20px;
+    margin-bottom: 15px;
+    vertical-align: top;
+}
+
+.form__group-content {
+    display: flex;
+    align-items: center;
+}
+
+.form__input--text input,
+.form__input--select select,
+.form__input--date input {
+    padding: 8px 12px;
+    height: 36px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 14px;
+    background-color: #fff;
+    min-width: 150px;
+    box-sizing: border-box;
+}
+
+/* 日付入力フィールドの高さ調整 */
+.form__input--date input[type="date"] {
+    height: 36px;
+    line-height: 1;
+}
+
+.form__input--text input:focus,
+.form__input--select select:focus,
+.form__input--date input:focus {
+    outline: none;
+    border-color: #9e743e;
+    box-shadow: 0 0 5px rgba(158, 116, 62, 0.3);
+}
+
+.form__input--select select {
+    cursor: pointer;
+}
+
+.search-form__button {
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: top;
+}
+
+.search-form__button-submit {
+    padding: 8px 20px;
+    height: 36px;
+    border: none;
+    border-radius: 4px;
+    background: #9e743e;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    min-width: 80px;
+}
+
+.search-form__button-submit:hover {
+    background: #8a6a35;
+}
+
+/* リセットボタン */
+.reset-form__button {
+    display: inline-block;
+    vertical-align: top;
+}
+
+/* リセットフォーム */
+.reset-form {
+    display: inline;
+}
+
+.reset-form__button-submit {
+    padding: 8px 20px;
+    height: 36px;
+    border: none;
+    border-radius: 4px;
+    background: #9e743e;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+    min-width: 80px;
+}
+
+.reset-form__button-submit:hover {
+    background: #8a6a35;
+}
+
+/* 検索結果テーブル */
+.contactlist-table {
+    margin: 30px auto 0;
+    width: 100%;
+    max-width: 1200px;
+    background-color: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.contactlist-table__inner {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+/* テーブルヘッダー */
+.contactlist-table__row:first-child {
+    background-color: #9e743e;
+    color: #fff;
+}
+
+.contactlist-table__header {
+    padding: 15px 10px;
+    font-weight: 600;
+    text-align: center;
+    font-size: 14px;
+    border: none;
+    box-sizing: border-box;
+}
+
+.contactlist-table__header:nth-child(1) {
+    width: 25%;
+}
+
+.contactlist-table__header:nth-child(2) {
+    width: 25%;
+}
+
+.contactlist-table__header:nth-child(3) {
+    width: 35%;
+}
+
+.contactlist-table__header:nth-child(4) {
+    width: 15%;
+}
+
+/* テーブル行 */
+.contactlist-table__row:not(:first-child) {
+    border-bottom: 1px solid #e9ecef;
+    transition: background-color 0.2s;
+}
+
+.contactlist-table__row:not(:first-child):hover {
+    background-color: #f8f9fa;
+}
+
+.contactlist-table__item {
+    padding: 12px 10px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.contactlist-table__item:nth-child(1) {
+    width: 25%;
+}
+
+.contactlist-table__item:nth-child(2) {
+    width: 25%;
+}
+
+.contactlist-table__item:nth-child(3) {
+    width: 35%;
+}
+
+.contactlist-table__item:nth-child(4) {
+    width: 15%;
+}
+
+/* 更新フォーム */
+.update-form__item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.update-form__item-p {
+    margin: 0;
+    color: #333;
+    line-height: 1.4;
+}
+
+/* 詳細ボタン */
+.update-form__button {
+    display: flex;
+    justify-content: center;
+}
+
+.update-form__button-submit {
+    padding: 6px 16px;
+    border: none;
+    border-radius: 4px;
+    background: #007bff;
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.update-form__button-submit:hover {
+    background: #0056b3;
+    text-decoration: none;
+    color: #fff;
+}

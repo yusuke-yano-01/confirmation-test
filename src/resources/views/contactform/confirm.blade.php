@@ -24,7 +24,13 @@
         <tr class="confirm-table__row">
           <th class="confirm-table__header">性別</th>
           <td class="confirm-table__text">
-            {{ $contact['gender'] == 1 ? '男性' : '女性' }}
+            @if($contact['gender'] == 1)
+              男性
+            @elseif($contact['gender'] == 2)
+              女性
+            @elseif($contact['gender'] == 3)
+              その他
+            @endif
             <input type="hidden" name="gender" value="{{ $contact['gender'] }}" />
           </td>
         </tr>
