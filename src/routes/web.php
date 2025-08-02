@@ -1,6 +1,10 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MiddlewareController;
+use App\Http\Controllers\ContactFormController;
+use App\Http\Controllers\ContactListController;  
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +17,34 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+Route::get('/', [ContactFormController::class, 'index']);    
+
+Route::get('/middleware', [MiddlewareController::class, 'index']);
+Route::post('/middleware', [MiddlewareController::class, 'post'])->middleware('first');
+
+Route::group(['prefix' => 'contactform'], function() {
+    Route::get('', [ContactFormController::class, 'index']);
+    Route::post('back', [ContactFormController::class, 'back']);
+    Route::post('confirm', [ContactFormController::class,'check']);
+    Route::post('thanks', [ContactFormController::class,'add']);
+    Route::get('thanks', [ContactFormController::class,'thanks']);
 });
+
+Route::group(['prefix' => 'auth'], function() {
+    Route::get('login', [AuthController::class, 'index']);
+    Route::post('login', [AuthController::class, 'login']);
+    Route::get('register', [AuthController::class, 'registerForm']);
+    Route::post('register', [AuthController::class,'register']);
+    Route::post('logout', [AuthController::class, 'logout']);
+});
+
+Route::middleware('auth')->group(function () {
+    Route::group(['prefix' => 'contactlist'], function() {
+        Route::get('', [ContactListController::class, 'index']);
+        Route::post('', [ContactListController::class, 'reset']);
+        Route::post('search', [ContactListController::class, 'search']);
+        Route::get('export', [ContactListController::class, 'export']);
+    });
+});
+
