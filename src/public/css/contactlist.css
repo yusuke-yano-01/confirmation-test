@@ -1,3 +1,7 @@
+/* ========================================
+   お問い合わせ一覧ページ - メインレイアウト
+   ======================================== */
+
 .contactlist__content {
     margin: 0 auto;
     padding: 30px 15px;
@@ -15,7 +19,9 @@
     font-weight: 600;
 }
 
-/* 検索フォーム */
+/* ========================================
+   検索フォーム
+   ======================================== */
 .form {
     margin-bottom: 30px;
     padding: 20px;
@@ -49,7 +55,6 @@
     box-sizing: border-box;
 }
 
-/* 日付入力フィールドの高さ調整 */
 .form__input--date input[type="date"] {
     height: 36px;
     line-height: 1;
@@ -91,17 +96,6 @@
     background: #8a6a35;
 }
 
-/* リセットボタン */
-.reset-form__button {
-    display: inline-block;
-    vertical-align: top;
-}
-
-/* リセットフォーム */
-.reset-form {
-    display: inline;
-}
-
 .reset-form__button-submit {
     padding: 8px 20px;
     height: 36px;
@@ -114,13 +108,16 @@
     font-weight: 600;
     transition: background-color 0.3s;
     min-width: 80px;
+    margin-left: 10px;
 }
 
 .reset-form__button-submit:hover {
     background: #8a6a35;
 }
 
-/* ページネーションとエクスポートボタンのコンテナ */
+/* ========================================
+   ページネーション・エクスポート共通スタイル
+   ======================================== */
 .pagination-export-container {
     display: flex;
     justify-content: space-between;
@@ -130,17 +127,17 @@
     gap: 20px;
 }
 
-/* エクスポートボタンを左側に配置 */
 .pagination-export-container .export-form {
     order: 1;
 }
 
-/* ページネーションを右側に配置 */
 .pagination-export-container .pagination {
     order: 2;
 }
 
-/* エクスポートボタン */
+/* ========================================
+   エクスポートボタン
+   ======================================== */
 .export-form {
     text-align: right;
 }
@@ -169,7 +166,9 @@
     color: #fff;
 }
 
-/* ページネーション */
+/* ========================================
+   ページネーション
+   ======================================== */
 .pagination {
     display: flex;
     justify-content: center;
@@ -225,7 +224,6 @@
     border-color: #dee2e6;
 }
 
-/* ページネーションの矢印アイコンサイズ調整 */
 .pagination .page-link svg,
 .pagination .page-link i {
     width: 12px;
@@ -233,13 +231,6 @@
     vertical-align: middle;
 }
 
-/* 前へ・次へボタンのテキストサイズ調整 */
-.pagination .page-link:not(.page-numbers) {
-    font-size: 12px;
-    padding: 8px 10px;
-}
-
-/* 矢印ボタンのサイズ調整 */
 .pagination .page-item:first-child .page-link,
 .pagination .page-item:last-child .page-link {
     font-size: 12px;
@@ -252,14 +243,15 @@
     text-align: center;
 }
 
-/* 数字ボタンのサイズ調整 */
 .pagination .page-item:not(:first-child):not(:last-child) .page-link {
     font-size: 14px;
     padding: 8px 12px;
     min-width: 36px;
 }
 
-/* 検索結果テーブル */
+/* ========================================
+   検索結果テーブル
+   ======================================== */
 .contactlist-table {
     margin: 30px auto 0;
     width: 100%;
@@ -275,7 +267,6 @@
     border-collapse: collapse;
 }
 
-/* テーブルヘッダー */
 .contactlist-table__row:first-child {
     background-color: #9e743e;
     color: #fff;
@@ -291,22 +282,21 @@
 }
 
 .contactlist-table__header:nth-child(1) {
-    width: 25%;
+    width: 30%;
 }
 
 .contactlist-table__header:nth-child(2) {
-    width: 25%;
+    width: 30%;
 }
 
 .contactlist-table__header:nth-child(3) {
-    width: 35%;
+    width: 30%;
 }
 
 .contactlist-table__header:nth-child(4) {
-    width: 15%;
+    width: 10%;
 }
 
-/* テーブル行 */
 .contactlist-table__row:not(:first-child) {
     border-bottom: 1px solid #e9ecef;
     transition: background-color 0.2s;
@@ -325,22 +315,21 @@
 }
 
 .contactlist-table__item:nth-child(1) {
-    width: 25%;
+    width: 30%;
 }
 
 .contactlist-table__item:nth-child(2) {
-    width: 25%;
+    width: 30%;
 }
 
 .contactlist-table__item:nth-child(3) {
-    width: 35%;
+    width: 30%;
 }
 
 .contactlist-table__item:nth-child(4) {
-    width: 15%;
+    width: 10%;
 }
 
-/* 更新フォーム */
 .update-form__item {
     display: flex;
     justify-content: center;
@@ -353,7 +342,6 @@
     line-height: 1.4;
 }
 
-/* 詳細ボタン */
 .update-form__button {
     display: flex;
     justify-content: center;
@@ -379,9 +367,12 @@
     color: #fff;
 }
 
-/* モーダルの背景（黒い半透明） */
+/* ========================================
+   モーダル
+   ======================================== */
+
 .modal-overlay {
-    display: none; /* 初期状態では非表示 */
+    display: none;
     position: fixed;
     top: 0;
     left: 0;
@@ -393,7 +384,6 @@
     z-index: 1000;
 }
 
-/* モーダル本体 */
 .modal-content {
     background: #fff;
     padding: 30px;
@@ -403,7 +393,6 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* モーダルタイトル */
 .modal-content h3 {
     margin: 0 0 20px 0;
     color: #9e743e;
@@ -411,7 +400,6 @@
     text-align: center;
 }
 
-/* モーダル詳細 */
 .modal-details {
     margin-bottom: 20px;
 }
@@ -436,7 +424,6 @@
     word-break: break-all;
 }
 
-/* 閉じるボタン */
 .close-btn {
     display: block;
     margin: 0 auto;
@@ -453,4 +440,55 @@
 
 .close-btn:hover {
     background: #8a6a35;
+}
+
+/* 右上×ボタン */
+.modal-close-btn {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    color: #666;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+
+.modal-close-btn:hover {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+/* モーダルボタンエリア */
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* 削除ボタン */
+.modal-delete-btn {
+    padding: 10px 20px;
+    background: #dc3545;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.modal-delete-btn:hover {
+    background: #c82333;
 }

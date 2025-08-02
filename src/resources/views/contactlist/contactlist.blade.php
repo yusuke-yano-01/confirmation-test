@@ -13,8 +13,7 @@
   </div>
     
     <!-- 検索フォーム -->
-    <form class="form" action="/contactlist/search" method="post">
-      @csrf  
+    <form class="form" action="/contactlist/search" method="get">  
       <div class="form__group">
         <div class="form__group-content">
           <div class="form__input--text">
@@ -159,6 +158,9 @@
   <!-- モーダル本体 -->
   <div class="modal-overlay" id="modal">
     <div class="modal-content">
+      <!-- ×ボタン -->
+      <button class="modal-close-btn" id="modalCloseBtn">&times;</button>
+      
       <h3>お問い合わせ詳細</h3>
       <div class="modal-details">
         <p><strong>お名前：</strong><span id="modal-name"></span></p>
@@ -170,7 +172,11 @@
         <p><strong>お問い合わせ内容の種類：</strong><span id="modal-category"></span></p>
         <p><strong>お問い合わせ内容：</strong><span id="modal-detail"></span></p>
       </div>
-      <button class="close-btn" id="closeModal">閉じる</button>
+      
+      <!-- 下段のボタンエリア -->
+      <div class="modal-buttons">
+        <button class="modal-delete-btn" id="modalDeleteBtn">削除</button>
+      </div>
     </div>
   </div>
 
@@ -197,7 +203,8 @@
         });
     }
 
-    const closeBtn = document.getElementById('closeModal');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+    const modalDeleteBtn = document.getElementById('modalDeleteBtn');
     const modal = document.getElementById('modal');
 
     // 詳細ボタンのクリックイベント
@@ -233,13 +240,43 @@
         document.getElementById('modal-category').textContent = category;
         document.getElementById('modal-detail').textContent = detail;
 
+        // 削除ボタンにcontact_idを設定
+        const contactId = e.target.getAttribute('data-contact-id');
+        modalDeleteBtn.setAttribute('data-contact-id', contactId);
+
         // モーダルを表示
         modal.style.display = 'flex';
       }
     });
 
-    closeBtn.addEventListener('click', () => {
+    // 右上×ボタンのイベント
+    modalCloseBtn.addEventListener('click', () => {
       modal.style.display = 'none';
+    });
+
+    // 削除ボタンのイベント
+    modalDeleteBtn.addEventListener('click', () => {
+      if (confirm('このお問い合わせを削除しますか？')) {
+        const contactId = modalDeleteBtn.getAttribute('data-contact-id');
+        // 削除処理を実行
+        fetch(`/contactlist/delete/${contactId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+          }
+        }).then(response => {
+          if (response.ok) {
+            // 削除成功時はページをリロード
+            window.location.reload();
+          } else {
+            alert('削除に失敗しました。');
+          }
+        }).catch(error => {
+          console.error('Error:', error);
+          alert('削除に失敗しました。');
+        });
+      }
     });
 
     // 背景クリックでも閉じる

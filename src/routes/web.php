@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\MiddlewareController;
 use App\Http\Controllers\ContactFormController;
 use App\Http\Controllers\ContactListController;  
 
@@ -19,9 +18,6 @@ use App\Http\Controllers\ContactListController;
 
 
 Route::get('/', [ContactFormController::class, 'index']);    
-
-Route::get('/middleware', [MiddlewareController::class, 'index']);
-Route::post('/middleware', [MiddlewareController::class, 'post'])->middleware('first');
 
 Route::group(['prefix' => 'contactform'], function() {
     Route::get('', [ContactFormController::class, 'index']);
@@ -42,9 +38,14 @@ Route::group(['prefix' => 'auth'], function() {
 Route::middleware('auth')->group(function () {
     Route::group(['prefix' => 'contactlist'], function() {
         Route::get('', [ContactListController::class, 'index']);
-        Route::post('', [ContactListController::class, 'reset']);
-        Route::post('search', [ContactListController::class, 'search']);
+        Route::post('reset', [ContactListController::class, 'reset']);
+        Route::get('search', [ContactListController::class, 'search']);
         Route::get('export', [ContactListController::class, 'export']);
+        Route::delete('delete/{id}', function($id) {
+            $contact = \App\Models\Contact::findOrFail($id);
+            $result = $contact->delete();
+            echo $result;
+        });
     });
 });
 

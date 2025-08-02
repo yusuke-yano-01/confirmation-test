@@ -1,3 +1,7 @@
+/* ========================================
+   ヘッダー
+   ======================================== */
+
 .header {
     display: flex;
     justify-content: center;
@@ -47,20 +51,10 @@
     z-index: 0;
 }
 
-.header-nav__link {
-    color: #fff;
-    text-decoration: none;
-}
+/* ========================================
+   ナビゲーション
+   ======================================== */
 
-.header-nav__button {
-    border: none;
-    background: transparent;
-    color: #8a6a35;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-/* ナビゲーションリンクのスタイル */
 .header-nav__link {
     color: #9e743e;
     text-decoration: none;

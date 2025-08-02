@@ -34,6 +34,6 @@ class DatabaseSeeder extends Seeder
         }
         
         // Contactでは既存のCategoryを使用
-        Contact::factory(10)->create();
+        Contact::factory(100)->create();
     }
 }

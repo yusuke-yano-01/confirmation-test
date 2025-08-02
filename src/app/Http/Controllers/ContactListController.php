@@ -17,8 +17,6 @@ class ContactListController extends Controller
         // リセットフラグが設定されている場合は検索結果をクリア
         if ($request->session()->has('reset')) {
             $request->session()->forget('reset');
-            $contacts = Contact::paginate(7);
-            return view('contactlist.contactlist', compact('categories', 'contacts'));
         }
         
         $contacts = Contact::paginate(7);
@@ -53,6 +51,9 @@ class ContactListController extends Controller
         }
         
         $contacts = $query->paginate(7);
+
+        // 検索条件をページネーションに追加
+        $contacts->appends($request->query());
 
         return view('contactlist.contactlist', compact('categories', 'contacts'));
     }
@@ -144,7 +145,6 @@ class ContactListController extends Controller
                     $contact->created_at->format('Y-m-d H:i:s')
                 ]);
             }
-            
             fclose($file);
         };
         

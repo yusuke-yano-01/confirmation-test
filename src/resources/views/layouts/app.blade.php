@@ -26,13 +26,9 @@
                 <button class="header-nav__link">ログアウト</button>
               </form>
             @elseif (request()->path() === 'auth/login')
-              <a class="header-nav__link" href="/contactform">お問い合わせ</a>
               <a class="header-nav__link" href="/auth/register">register</a>
             @elseif (request()->path() === 'auth/register')
-              <a class="header-nav__link" href="/contactform">お問い合わせ</a>
               <a class="header-nav__link" href="/auth/login">login</a>
-            @else
-              <a class="header-nav__link" href="/auth/login">管理画面</a>
             @endif
         </nav>
       </div>

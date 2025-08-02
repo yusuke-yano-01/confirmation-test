@@ -11,13 +11,13 @@
 @endphp
 <div class="contact-form__content">
   <div class="contact-form__heading">
-    <h2>お問い合わせフォーム</h2>
+    <h2>Contact</h2>
   </div>
   <form class="form" action="/contactform/confirm" method="post">
     @csrf
     <div class="form__group">
       <div class="form__group-title">
-        <span class="form__label--item">お名前</span>
+        <span class="form__label--item">お名前※</span>
       </div>
       <div class="form__group-content">
         <div class="form__input--text form__input--name">
@@ -37,7 +37,7 @@
     
     <div class="form__group">
       <div class="form__group-title">
-        <span class="form__label--item">性別</span>
+        <span class="form__label--item">性別※</span>
       </div>
       <div class="form__group-content">
         <div class="form__input--radio">
@@ -55,7 +55,7 @@
     
     <div class="form__group">
       <div class="form__group-title">
-        <span class="form__label--item">メールアドレス</span>
+        <span class="form__label--item">メールアドレス※</span>
       </div>
       <div class="form__group-content">
         <div class="form__input--text">
@@ -71,7 +71,7 @@
     
     <div class="form__group">
       <div class="form__group-title">
-        <span class="form__label--item">電話番号</span>
+        <span class="form__label--item">電話番号※</span>
       </div>
       <div class="form__group-content">
         <div class="form__input--text">
@@ -87,7 +87,7 @@
     
     <div class="form__group">
       <div class="form__group-title">
-        <span class="form__label--item">住所</span>
+        <span class="form__label--item">住所※</span>
       </div>
       <div class="form__group-content">
         <div class="form__input--text">
@@ -118,12 +118,12 @@
     </div>
     <div class="form__group">
       <div class="form__group-title">
-        <span class="form__label--item">お問い合わせ内容の種類</span>
+        <span class="form__label--item">お問い合わせ内容の種類※</span>
       </div>
       <div class="form__group-content">
         <div class="form__input--select">
           <select name="category_id">
-            <option value="">お問い合わせ内容の種類を選択してください</option>
+            <option value="">選択してください</option>
             @foreach ($categories as $category)
             <option value="{{ $category->id }}" {{ old('category_id', isset($formData['category_id']) ? $formData['category_id'] : '') == $category->id ? 'selected' : '' }}>{{ $category->content }}</option>
             @endforeach
@@ -137,7 +137,7 @@
     </div>
     <div class="form__group">
       <div class="form__group-title">
-        <span class="form__label--item">お問い合わせ内容</span>
+        <span class="form__label--item">お問い合わせ内容※</span>
       </div>
       <div class="form__group-content">
         <div class="form__input--textarea">
