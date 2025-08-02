@@ -9,7 +9,7 @@
   <div class="confirm__heading">
     <h2>お問い合わせ内容確認</h2>
   </div>
-  <form class="form" action="/contact/thanks" method="post">
+  <form class="form" action="/contactform/thanks" method="post" id="submit-form">
     @csrf
     <div class="confirm-table">
       <table class="confirm-table__inner">
@@ -78,9 +78,27 @@
         </tr>
       </table>
     </div>
-    <div class="form__button">
-      <button class="form__button-submit" type="submit">送信</button>
-    </div>
   </form>
+  
+  <div class="form__buttons">
+    <div class="form__button">
+      <button class="form__button-submit" type="submit" form="submit-form">送信</button>
+    </div>
+    <div class="form__button">
+      <form action="/contactform/back" method="post" style="display: inline;">
+        @csrf
+        <input type="hidden" name="last_name" value="{{ $contact['last_name'] }}" />
+        <input type="hidden" name="first_name" value="{{ $contact['first_name'] }}" />
+        <input type="hidden" name="gender" value="{{ $contact['gender'] }}" />
+        <input type="hidden" name="email" value="{{ $contact['email'] }}" />
+        <input type="hidden" name="tell" value="{{ $contact['tell'] }}" />
+        <input type="hidden" name="address" value="{{ $contact['address'] }}" />
+        <input type="hidden" name="building" value="{{ $contact['building'] ?? '' }}" />
+        <input type="hidden" name="category_id" value="{{ $contact['category_id'] }}" />
+        <input type="hidden" name="detail" value="{{ $contact['detail'] }}" />
+        <button class="form__button-submit form__button-back" type="submit">戻る</button>
+      </form>
+    </div>
+  </div>
 </div>
 @endsection

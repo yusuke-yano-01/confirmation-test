@@ -2,16 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\UsersRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
     public function index()
     {
         return view('auth.login');
+    }
+
+    public function login(UsersRequest $request)
+    {
+        $credentials = $request->only(['email', 'password']);
+
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect('/contactlist');
+        }
+
+        return back()->withErrors([
+            'login' => 'メールアドレスまたはパスワードが正しくありません。',
+        ]);
     }
 
     public function registerForm()
@@ -28,5 +42,11 @@ class AuthController extends Controller
         ]);
         
         return view('auth.login');
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/auth/login');
     }
 }

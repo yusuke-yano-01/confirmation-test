@@ -25,6 +25,7 @@ Route::post('/middleware', [MiddlewareController::class, 'post'])->middleware('f
 
 Route::group(['prefix' => 'contactform'], function() {
     Route::get('', [ContactFormController::class, 'index']);
+    Route::post('back', [ContactFormController::class, 'back']);
     Route::post('confirm', [ContactFormController::class,'check']);
     Route::post('thanks', [ContactFormController::class,'add']);
     Route::get('thanks', [ContactFormController::class,'thanks']);
@@ -32,16 +33,18 @@ Route::group(['prefix' => 'contactform'], function() {
 
 Route::group(['prefix' => 'auth'], function() {
     Route::get('login', [AuthController::class, 'index']);
+    Route::post('login', [AuthController::class, 'login']);
     Route::get('register', [AuthController::class, 'registerForm']);
     Route::post('register', [AuthController::class,'register']);
-});
-
-Route::group(['prefix' => 'contactlist'], function() {
-        Route::get('', [ContactListController::class, 'index']);
-        Route::post('', [ContactListController::class, 'reset']);
-        Route::post('search', [ContactListController::class, 'search']);
+    Route::post('logout', [AuthController::class, 'logout']);
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/management', [AuthController::class, 'index']);
+    Route::group(['prefix' => 'contactlist'], function() {
+        Route::get('', [ContactListController::class, 'index']);
+        Route::post('', [ContactListController::class, 'reset']);
+        Route::post('search', [ContactListController::class, 'search']);
+        Route::get('export', [ContactListController::class, 'export']);
+    });
 });
+

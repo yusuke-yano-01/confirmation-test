@@ -24,6 +24,7 @@ class ContactFactory extends Factory
             'address' => $this->faker->address(),
             'building' => $this->faker->optional()->buildingNumber(),
             'detail' => $this->faker->text(200),
+            'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
         ];
     }
 }

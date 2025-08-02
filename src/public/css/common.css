@@ -55,7 +55,7 @@
 .header-nav__button {
     border: none;
     background: transparent;
-    color: #9e743e;
+    color: #8a6a35;
     font-size: 16px;
     cursor: pointer;
 }
@@ -72,14 +72,14 @@
 }
 
 .header-nav__link:hover {
-    background-color: #fdc152;
-    color: #9e743e;
+    background-color: #9e743e;
+    color: #ffffff;
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .header-nav__button {
-    color: #fdc152;
+    color: #9e743e;
     padding: 8px 16px;
     border-radius: 20px;
     border: 2px solid #fff;

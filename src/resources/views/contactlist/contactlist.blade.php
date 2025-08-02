@@ -18,7 +18,7 @@
       <div class="form__group">
         <div class="form__group-content">
           <div class="form__input--text">
-            <input type="email" name="email" value="{{ session('reset') ? '' : old('email', request('email')) }}" placeholder="メールアドレス入力" />
+            <input type="text" name="email" value="{{ session('reset') ? '' : old('email', request('email')) }}" placeholder="メールアドレス入力" />
           </div>
         </div>
       </div>
@@ -54,19 +54,40 @@
           </div>
         </div>
       </div>
-      <!-- 検索ボタン -->
+      <!-- 検索ボタンとリセットボタン -->
       <div class="search-form__button">
         <button class="search-form__button-submit" type="submit">検索</button>
-      </div>
-      <!-- リセットボタン -->
-      <div class="reset-form__button">
-        <form class="reset-form" action="/contactlist" method="post">
-          @csrf
-          <button class="reset-form__button-submit" type="submit">リセット</button>
-        </form>
+        <button class="reset-form__button-submit" type="button" onclick="resetForm()">リセット</button>
       </div>
     </form>
     
+    <!-- ページネーションとエクスポートボタンを同じ行に配置 -->
+    <div class="pagination-export-container">
+      <div class="pagination">
+        {{ $contacts->links('vendor.pagination.simple-bootstrap-4') }}
+      </div>
+      
+      @if(isset($contacts) && count($contacts) > 0)
+        <div class="export-form">
+          <form class="export-form__button" action="/contactlist/export" method="get">
+            @if(request('email'))
+              <input type="hidden" name="email" value="{{ request('email') }}">
+            @endif
+            @if(request('gender'))
+              <input type="hidden" name="gender" value="{{ request('gender') }}">
+            @endif
+            @if(request('category_id'))
+              <input type="hidden" name="category_id" value="{{ request('category_id') }}">
+            @endif
+            @if(request('created_at'))
+              <input type="hidden" name="created_at" value="{{ request('created_at') }}">
+            @endif
+            <button class="export-form__button-submit" type="submit">CSVエクスポート</button>
+          </form>
+        </div>
+      @endif
+    </div>
+
     @if(isset($contacts) && count($contacts) > 0)
       <!-- お問い合わせ一覧テーブル -->
       <div class="contactlist-table">
@@ -113,14 +134,20 @@
               </td>
               <!-- 詳細ボタンエリア -->
               <td class="contactlist-table__item">
-                <form class="update-form" action="/contactlist/update" method="POST">
-                  @method('PATCH')
-                  @csrf
-                  <input type="hidden" name="id" value="{{ $contact->id }}">
-                  <div class="update-form__button">
-                    <button class="update-form__button-submit" type="submit">詳細</button>
-                  </div>
-                </form>
+                <div class="update-form__button">
+                  <button class="openModal" 
+                    data-contact-id="{{ $contact->id }}" 
+                    data-contact-name="{{ $contact->last_name }} {{ $contact->first_name }}" 
+                    data-contact-gender="{{ $contact->gender }}" 
+                    data-contact-email="{{ $contact->email }}" 
+                    data-contact-tel="{{ $contact->tell }}" 
+                    data-contact-address="{{ $contact->address }}" 
+                    data-contact-building="{{ $contact->building }}" 
+                    data-contact-category="{{ $contact->category_name() }}" 
+                    data-contact-detail="{{ $contact->detail }}">
+                    詳細
+                  </button>
+                </div>
               </td>
             </tr>
           @endforeach
@@ -128,4 +155,98 @@
       </div>
     @endif
 </div>
+
+  <!-- モーダル本体 -->
+  <div class="modal-overlay" id="modal">
+    <div class="modal-content">
+      <h3>お問い合わせ詳細</h3>
+      <div class="modal-details">
+        <p><strong>お名前：</strong><span id="modal-name"></span></p>
+        <p><strong>性別：</strong><span id="modal-gender"></span></p>
+        <p><strong>メールアドレス：</strong><span id="modal-email"></span></p>
+        <p><strong>電話番号：</strong><span id="modal-tel"></span></p>
+        <p><strong>住所：</strong><span id="modal-address"></span></p>
+        <p><strong>建物名：</strong><span id="modal-building"></span></p>
+        <p><strong>お問い合わせ内容の種類：</strong><span id="modal-category"></span></p>
+        <p><strong>お問い合わせ内容：</strong><span id="modal-detail"></span></p>
+      </div>
+      <button class="close-btn" id="closeModal">閉じる</button>
+    </div>
+  </div>
+
+<script>
+    // フォームリセット関数
+    function resetForm() {
+        // フォームの入力値をクリア
+        document.querySelector('input[name="email"]').value = '';
+        document.querySelector('select[name="gender"]').value = '';
+        document.querySelector('select[name="category_id"]').value = '';
+        document.querySelector('input[name="created_at"]').value = '';
+        document.querySelector('input[name="formatted_date"]').value = '';
+        
+        // フォームをリセットエンドポイントに送信
+        fetch('/contactlist/reset', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+            }
+        }).then(() => {
+            // ページをリロードしてリセット状態を反映
+            window.location.href = '/contactlist';
+        });
+    }
+
+    const closeBtn = document.getElementById('closeModal');
+    const modal = document.getElementById('modal');
+
+    // 詳細ボタンのクリックイベント
+    document.addEventListener('click', function(e) {
+      if (e.target.classList.contains('openModal')) {
+        // データ属性から情報を取得
+        const name = e.target.getAttribute('data-contact-name');
+        const gender = e.target.getAttribute('data-contact-gender');
+        const email = e.target.getAttribute('data-contact-email');
+        const tel = e.target.getAttribute('data-contact-tel');
+        const address = e.target.getAttribute('data-contact-address');
+        const building = e.target.getAttribute('data-contact-building');
+        const category = e.target.getAttribute('data-contact-category');
+        const detail = e.target.getAttribute('data-contact-detail');
+
+        // 性別の表示を変換
+        let genderText = '';
+        if (gender == 1) {
+          genderText = '男性';
+        } else if (gender == 2) {
+          genderText = '女性';
+        } else if (gender == 3) {
+          genderText = 'その他';
+        }
+
+        // モーダルに情報を表示
+        document.getElementById('modal-name').textContent = name;
+        document.getElementById('modal-gender').textContent = genderText;
+        document.getElementById('modal-email').textContent = email;
+        document.getElementById('modal-tel').textContent = tel;
+        document.getElementById('modal-address').textContent = address;
+        document.getElementById('modal-building').textContent = building || '未入力';
+        document.getElementById('modal-category').textContent = category;
+        document.getElementById('modal-detail').textContent = detail;
+
+        // モーダルを表示
+        modal.style.display = 'flex';
+      }
+    });
+
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+
+    // 背景クリックでも閉じる
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+</script>
 @endsection

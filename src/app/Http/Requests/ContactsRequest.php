@@ -39,6 +39,8 @@ class ContactsRequest extends FormRequest
     public function messages()
     {
         return [
+            'category_id.required' => 'カテゴリを選択してください',
+            'category_id.integer' => 'カテゴリを選択してください',
             'last_name.required' => '苗字を入力してください',
             'last_name.string' => '苗字を文字列で入力してください',
             'last_name.max' => '苗字を255文字以下で入力してください',
